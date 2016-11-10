@@ -30,6 +30,7 @@ namespace node {
   V(STATWATCHER)                                                              \
   V(TCPWRAP)                                                                  \
   V(TCPCONNECTWRAP)                                                           \
+  V(THREADWRAP)                                                               \
   V(TIMERWRAP)                                                                \
   V(TLSWRAP)                                                                  \
   V(TTYWRAP)                                                                  \

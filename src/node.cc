@@ -4449,8 +4449,9 @@ inline int Start(uv_loop_t* event_loop,
 
   {
     Mutex::ScopedLock scoped_lock(node_isolate_mutex);
-    CHECK_EQ(node_isolate, nullptr);
-    node_isolate = isolate;
+    if (node_isolate == nullptr) {
+      node_isolate = isolate;
+    }
   }
 
   int exit_code;
@@ -4464,8 +4465,9 @@ inline int Start(uv_loop_t* event_loop,
 
   {
     Mutex::ScopedLock scoped_lock(node_isolate_mutex);
-    CHECK_EQ(node_isolate, isolate);
-    node_isolate = nullptr;
+    if (node_isolate == isolate) {
+      node_isolate = nullptr;
+    }
   }
 
   isolate->Dispose();
@@ -4508,6 +4510,26 @@ int Start(int argc, char** argv) {
   V8::Dispose();
 
   v8_platform.Dispose();
+
+  delete[] exec_argv;
+  exec_argv = nullptr;
+
+  return exit_code;
+}
+
+int StartWorker(int argc, char** argv) {
+  CHECK_GT(argc, 0);
+
+  // TBD ???:
+  int exec_argc;
+  const char** exec_argv;
+  Init(&argc, const_cast<const char**>(argv), &exec_argc, &exec_argv);
+
+  uv_loop_t worker_loop;
+  uv_loop_init(&worker_loop);
+  const int exit_code =
+      Start(&worker_loop, argc, argv, exec_argc, exec_argv);
+  uv_loop_close(&worker_loop);
 
   delete[] exec_argv;
   exec_argv = nullptr;
