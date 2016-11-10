@@ -197,7 +197,7 @@ static uv_async_t dispatch_debug_messages_async;
 static Mutex node_isolate_mutex;
 static v8::Isolate* node_isolate;
 
-static struct {
+static struct V8_Platform {
 #if NODE_USE_V8_PLATFORM
   void Initialize(int thread_pool_size) {
     platform_ = v8::platform::CreateDefaultPlatform(thread_pool_size);
@@ -3397,18 +3397,22 @@ void LoadEnvironment(Environment* env) {
 
   // Add a reference to the global object
   Local<Object> global = env->context()->Global();
+  //printf("LoadEnvironment %s %d\n", __FILE__, __LINE__);
 
 #if defined HAVE_DTRACE || defined HAVE_ETW
   InitDTrace(env, global);
 #endif
+  //printf("LoadEnvironment %s %d\n", __FILE__, __LINE__);
 
 #if defined HAVE_LTTNG
   InitLTTNG(env, global);
 #endif
+  //printf("le %s %d\n", __FILE__, __LINE__);
 
 #if defined HAVE_PERFCTR
   InitPerfCounters(env, global);
 #endif
+  //printf("LoadEnvironment %s %d\n", __FILE__, __LINE__);
 
   // Enable handling of uncaught exceptions
   // (FatalException(), break on uncaught exception in debugger)
@@ -4462,8 +4466,9 @@ inline int Start(uv_loop_t* event_loop,
 
   {
     Mutex::ScopedLock scoped_lock(node_isolate_mutex);
-    CHECK_EQ(node_isolate, nullptr);
-    node_isolate = isolate;
+    if (node_isolate == nullptr) {
+      node_isolate = isolate;
+    }
   }
 
   int exit_code;
@@ -4477,8 +4482,9 @@ inline int Start(uv_loop_t* event_loop,
 
   {
     Mutex::ScopedLock scoped_lock(node_isolate_mutex);
-    CHECK_EQ(node_isolate, isolate);
-    node_isolate = nullptr;
+    if (node_isolate == isolate) {
+      node_isolate = nullptr;
+    }
   }
 
   isolate->Dispose();
@@ -4521,6 +4527,26 @@ int Start(int argc, char** argv) {
   V8::Dispose();
 
   v8_platform.Dispose();
+
+  delete[] exec_argv;
+  exec_argv = nullptr;
+
+  return exit_code;
+}
+
+int StartWorker(int argc, char** argv) {
+  CHECK_GT(argc, 0);
+
+  // TBD ???:
+  int exec_argc;
+  const char** exec_argv;
+  Init(&argc, const_cast<const char**>(argv), &exec_argc, &exec_argv);
+
+  uv_loop_t worker_loop;
+  uv_loop_init(&worker_loop);
+  const int exit_code =
+      Start(&worker_loop, argc, argv, exec_argc, exec_argv);
+  uv_loop_close(&worker_loop);
 
   delete[] exec_argv;
   exec_argv = nullptr;

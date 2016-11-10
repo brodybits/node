@@ -16,6 +16,7 @@ const tls = require('tls');
 const zlib = require('zlib');
 const ChildProcess = require('child_process').ChildProcess;
 const StreamWrap = require('_stream_wrap').StreamWrap;
+const threads = require('threads');
 const HTTPParser = process.binding('http_parser').HTTPParser;
 const async_wrap = process.binding('async_wrap');
 const pkeys = Object.keys(async_wrap.Providers);
@@ -114,6 +115,8 @@ zlib.createGzip();
 new ChildProcess();
 
 new HTTPParser(HTTPParser.REQUEST);
+
+threads.newThread();
 
 process.on('exit', function() {
   if (keyList.length !== 0) {

@@ -185,6 +185,11 @@ NODE_EXTERN extern bool force_fips_crypto;
 #endif
 
 NODE_EXTERN int Start(int argc, char *argv[]);
+
+NODE_EXTERN int StartWorker(int argc, char *argv[]);
+
+//NODE_EXTERN int WorkerStart(int argc, char *argv[]);
+
 NODE_EXTERN void Init(int* argc,
                       const char** argv,
                       int* exec_argc,

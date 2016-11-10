@@ -63,6 +63,7 @@
       'lib/_stream_wrap.js',
       'lib/string_decoder.js',
       'lib/sys.js',
+      'lib/threads.js',
       'lib/timers.js',
       'lib/tls.js',
       'lib/_tls_common.js',
@@ -177,6 +178,7 @@
         'src/timer_wrap.cc',
         'src/tty_wrap.cc',
         'src/process_wrap.cc',
+        'src/thread_wrap.cc',
         'src/udp_wrap.cc',
         'src/uv.cc',
         # headers to make for a more pleasant IDE experience
