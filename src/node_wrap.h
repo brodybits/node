@@ -10,10 +10,6 @@
 #include "tcp_wrap.h"
 #include "tty_wrap.h"
 #include "udp_wrap.h"
-#include "util.h"
-#include "util-inl.h"
-#include "uv.h"
-#include "v8.h"
 
 namespace node {
 

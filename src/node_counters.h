@@ -3,8 +3,6 @@
 
 #if defined(NODE_WANT_INTERNALS) && NODE_WANT_INTERNALS
 
-#include "node.h"
-
 #ifdef HAVE_PERFCTR
 #include "node_win32_perfctr_provider.h"
 #else
@@ -23,7 +21,6 @@
 #define NODE_COUNT_SERVER_CONN_OPEN() do { } while (false)
 #endif
 
-#include "v8.h"
 #include "env.h"
 
 namespace node {

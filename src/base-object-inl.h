@@ -5,10 +5,7 @@
 
 #include "base-object.h"
 #include "env.h"
-#include "env-inl.h"
 #include "util.h"
-#include "util-inl.h"
-#include "v8.h"
 
 namespace node {
 

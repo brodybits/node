@@ -3,9 +3,7 @@
 
 #if defined(NODE_WANT_INTERNALS) && NODE_WANT_INTERNALS
 
-#include "async-wrap.h"
 #include "connection_wrap.h"
-#include "env.h"
 
 namespace node {
 
