@@ -6,8 +6,8 @@
 #include "node.h"
 #include "util.h"
 #include "util-inl.h"
+
 #include "uv.h"
-#include "v8.h"
 
 #include <stdint.h>
 #include <stdlib.h>

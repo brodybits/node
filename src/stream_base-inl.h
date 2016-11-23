@@ -5,11 +5,6 @@
 
 #include "stream_base.h"
 
-#include "node.h"
-#include "env.h"
-#include "env-inl.h"
-#include "v8.h"
-
 namespace node {
 
 using v8::External;

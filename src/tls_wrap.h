@@ -3,14 +3,9 @@
 
 #if defined(NODE_WANT_INTERNALS) && NODE_WANT_INTERNALS
 
-#include "node.h"
 #include "node_crypto.h"  // SSLWrap
 
-#include "async-wrap.h"
-#include "env.h"
 #include "stream_wrap.h"
-#include "util.h"
-#include "v8.h"
 
 #include <openssl/ssl.h>
 

@@ -6,7 +6,6 @@
 #include "async-wrap.h"
 #include "util.h"
 #include "uv.h"
-#include "v8.h"
 
 namespace node {
 

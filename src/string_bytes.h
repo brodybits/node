@@ -5,11 +5,8 @@
 
 // Decodes a v8::Local<v8::String> or Buffer to a raw char*
 
-#include "v8.h"
-#include "node.h"
 #include "env.h"
 #include "env-inl.h"
-#include "util.h"
 
 namespace node {
 

@@ -3,14 +3,8 @@
 
 #if defined(NODE_WANT_INTERNALS) && NODE_WANT_INTERNALS
 
-#include "env.h"
-#include "async-wrap.h"
 #include "req-wrap.h"
 #include "req-wrap-inl.h"
-#include "node.h"
-#include "util.h"
-
-#include "v8.h"
 
 namespace node {
 
