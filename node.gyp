@@ -269,10 +269,12 @@
         [ 'node_use_v8_platform=="true"', {
           'defines': [
             'NODE_USE_V8_PLATFORM=1',
+            'NODE_V8_PROFILER=1',
           ],
         }, {
           'defines': [
             'NODE_USE_V8_PLATFORM=0',
+            'NODE_V8_PROFILER=0',
           ],
         }],
         [ 'node_tag!=""', {
